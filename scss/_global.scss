@@ -1,0 +1,15 @@
+$bg-color: #292424;
+$txt-color: #fff;
+
+html, body {
+    background-color: $bg-color;
+    color: $txt-color !important;
+}
+
+.table {
+    color: $txt-color !important;
+}
+
+.fix-cell-width {
+    width: max-content;
+}

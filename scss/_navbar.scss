@@ -1,0 +1,12 @@
+$bg-nav-color: #474343;
+$txt-color: #fff;
+
+.nav {
+    &bar {
+        background-color: $bg-nav-color !important;
+    }
+
+    &-link {
+        color: $txt-color !important;
+    }
+}

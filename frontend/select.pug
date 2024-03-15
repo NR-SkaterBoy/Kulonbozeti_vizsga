@@ -1,0 +1,33 @@
+include ./components/head.pug
+include ./components/navbar.pug
+
+selecet
+    form.mt-5(action="/select" method="get")
+        select(name="table")
+            option(value="albums") Albums
+            option(value="sqlite_sequence") sqlite_sequence
+            option(value="artists") artists
+            option(value="customers") customers
+            option(value="employees") employees
+            option(value="genres") genres
+            option(value="invoices") invoices
+            option(value="invoice_items") invoice_items
+            option(value="media_types") media_types
+            option(value="playlists") playlists
+            option(value="playlist_track") playlist_track
+            option(value="tracks") Tracks
+            option(value="sqlite_stat1") sqlite stat1
+        button(type="submit") Kiválaszt
+
+    h3 Kiválasztott táblázat: #{selected_table}
+    table.table.table-bordered.border-primary.mt-5
+        thead
+            tr
+                each col in rows[0] ? Object.keys(rows[0]) : []
+                    th.fix-cell-width= col
+
+        tbody 
+            each row in rows
+                tr
+                    each val in row ? Object.values(row) : []
+                        td.fix-cell-width= val
