@@ -36,15 +36,21 @@ app.get("/select", (req, res) => {
             rows: rows
         })
     })
-	
 })
-app.get("/insert", (req, res) => {
-    let { table } = req.query
-    if (!table) table = "albums"
-    db.insert(`INSERT INTO ${table}`, (e) => {
-        if (e) return console.log(`Error occured: ${e}`)
+
+app.post("/insert", (req, res) => {
+    console.log(req)
+
+    res.render("insert", {
+        page_title: "Lekérdezés",
     })
 })
+
+app.get("/insert", (req, res) => {
+    console.log(req)
+})
+
+
 app.get("/update", (req, res) => {
 	res.render({
 		page_title: "Rekord frissítése"
@@ -59,5 +65,5 @@ app.get("/del", (req, res) => {
 // =========== Server Setup ===========
 const port = process.env.PORT || 3000
 app.listen(port, async () => {
-	console.log(`Server is running on https://localhost:${port}`)
+	console.log(`Server is running on http://localhost:${port}`)
 })

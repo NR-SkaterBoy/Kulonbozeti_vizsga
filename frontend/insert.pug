@@ -1,5 +1,162 @@
 include ./components/head.pug
 include ./components/navbar.pug
 
-section 
-    
+section
+    select#options(name="selectedItem")
+        option --
+        option(value="albums") Albums
+        option(value="artists") artists
+        option(value="customers") customers
+        option(value="employees") employees
+        option(value="genres") genres
+        option(value="invoices") invoices
+        option(value="invoice_items") invoice_items
+        option(value="media_types") media_types
+        option(value="playlists") playlists
+        option(value="tracks") Tracks
+
+#content-albums.content.hidden 
+    form(action="insert" method="get")
+        label(for="title") Title
+        input(type="text" name="Artist ID") 
+        label(for="artistid") Artist Id
+        input(type="text" name="artistid")
+        input(type="submit" value="submit")
+
+#content-artists.content.hidden
+    form(action="insert" method="get")
+        label(for="name") Name
+        input(type="text" name="Name") 
+        input(type="submit" value="submit")
+
+#content-customers.content.hidden
+    form(action="insert" method="get")
+        label(for='firstName') First Name
+        input#firstName(type='text' name='FirstName' required='')
+        label(for='lastName') Last Name
+        input#lastName(type='text' name='LastName' required='')
+        label(for='company') Company
+        input#company(type='text' name='Company')
+        label(for='address') Address
+        input#address(type='text' name='Address')
+        label(for='city') City
+        input#city(type='text' name='City')
+        label(for='state') State
+        input#state(type='text' name='State')
+        label(for='country') Country
+        input#country(type='text' name='Country')
+        label(for='postalCode') Postal Code
+        input#postalCode(type='text' name='PostalCode')
+        label(for='phone') Phone
+        input#phone(type='text' name='Phone')
+        label(for='fax') Fax
+        input#fax(type='text' name='Fax')
+        label(for='email') Email
+        input#email(type='email' name='Email' required='')
+        label(for='supportRepId') Support Representative ID
+        input#supportRepId(type='text' name='SupportRepId')
+        input(type="submit" value="submit")
+
+#content-employees.content.hidden
+    form(action="insert" method="get")
+        label(for='lastName') Last Name
+        input#lastName(type='text' name='LastName' required='')
+        label(for='firstName') First Name
+        input#firstName(type='text' name='FirstName' required='')
+        label(for='title') Title
+        input#title(type='text' name='Title')
+        label(for='reportsTo') Reports To
+        input#reportsTo(type='text' name='ReportsTo')
+        label(for='birthDate') Birth Date
+        input#birthDate(type='date' name='BirthDate')
+        label(for='hireDate') Hire Date
+        input#hireDate(type='date' name='HireDate')
+        label(for='address') Address
+        input#address(type='text' name='Address')
+        label(for='city') City
+        input#city(type='text' name='City')
+        label(for='state') State
+        input#state(type='text' name='State')
+        label(for='country') Country
+        input#country(type='text' name='Country')
+        label(for='postalCode') Postal Code
+        input#postalCode(type='text' name='PostalCode')
+        label(for='phone') Phone
+        input#phone(type='text' name='Phone')
+        label(for='fax') Fax
+        input#fax(type='text' name='Fax')
+        label(for='email') Email
+        input#email(type='email' name='Email' required='')
+        input(type='submit' value='Submit')
+
+#content-genres.content.hidden 
+    form(action="insert" method="get")
+        label(for='name') Name
+        input(type='text' name='name' required='')
+    input(type="submit" value="submit")
+
+#content-invoices.content.hidden 
+    form(action="insert" method="get")
+        label(for='customerId') Customer ID
+        input#customerId(type='text' name='CustomerId' required='')
+        label(for='invoiceDate') Invoice Date
+        input#invoiceDate(type='date' name='InvoiceDate' required='')
+        label(for='billingAddress') Billing Address
+        input#billingAddress(type='text' name='BillingAddress' required='')
+        label(for='billingCity') Billing City
+        input#billingCity(type='text' name='BillingCity' required='')
+        label(for='billingState') Billing State
+        input#billingState(type='text' name='BillingState')
+        label(for='billingCountry') Billing Country
+        input#billingCountry(type='text' name='BillingCountry' required='')
+        label(for='billingPostalCode') Billing Postal Code
+        input#billingPostalCode(type='text' name='BillingPostalCode' required='')
+        label(for='total') Total
+        input#total(type='text' name='Total' required='')
+        input(type="submit" value="submit")
+
+#content-invoice_items.content.hidden
+    form(action="insert" method="get")
+        label(for='invoiceId') Invoice ID
+        input#invoiceId(type='text' name='InvoiceId' required='')
+        label(for='trackId') Track ID
+        input#trackId(type='text' name='TrackId' required='')
+        label(for='unitPrice') Unit Price
+        input#unitPrice(type='number' name='UnitPrice' step='0.01' required='')
+        label(for='quantity') Quantity
+        input#quantity(type='number' name='Quantity' required='')
+        input(type="submit" value="submit")
+
+#content-media_types.content.hidden 
+    form(action="insert" method="get")
+        label(for='name') Name
+        input(type='text' name='name' required='')
+        input(type="submit" value="submit")
+
+#content-playlists.content.hidden
+    form(action="insert" method="get")
+        label(for='name') Name
+        input(type='text' name='name' required='')
+        input(type="submit" value="submit")
+
+#content-tracks.content.hidden 
+    form(action='/submit_album_info' method='get')
+        label(for='albumId') Album ID
+        input#albumId(type='text' name='AlbumId' required='')
+        label(for='mediaTypeId') Media Type ID
+        input#mediaTypeId(type='text' name='MediaTypeId' required='')
+        label(for='genreId') Genre ID
+        input#genreId(type='text' name='GenreId' required='')
+        label(for='composer') Composer
+        input#composer(type='text' name='Composer')
+        label(for='milliseconds') Milliseconds
+        input#milliseconds(type='text' name='Milliseconds')
+        label(for='bytes') Bytes
+        input#bytes(type='text' name='Bytes')
+        label(for='unitPrice') Unit Price
+        input#unitPrice(type='text' name='UnitPrice' required='')
+        input(type='submit' value='Submit')
+
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+script(src="/js/insertform.js")

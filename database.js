@@ -32,7 +32,6 @@ module.exports = class Database {
                 callback(err, null)
                 return
             }
-            // A beszúrt sor ID-ját visszaadjuk
             callback(null, this.lastID)
         })
     }

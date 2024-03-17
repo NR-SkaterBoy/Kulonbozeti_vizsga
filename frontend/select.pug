@@ -20,14 +20,18 @@ selecet
         button(type="submit") Kiválaszt
 
     h3 Kiválasztott táblázat: #{selected_table}
-    table.table.table-bordered.border-primary.mt-5
+    input#searchInput(type='text' placeholder='Keresés...')
+    table.table.table-bordered.border-primary.mt-5#myTable
         thead
             tr
-                each col in rows[0] ? Object.keys(rows[0]) : []
-                    th.fix-cell-width= col
+                each col, idx in rows[0] ? Object.keys(rows[0]) : []
+                    th.fix-cell-width(onclick=`sortTable(${idx})`)= col
 
         tbody 
             each row in rows
                 tr
                     each val in row ? Object.values(row) : []
                         td.fix-cell-width= val
+
+    
+script(src="/js/shortTable.js") 
