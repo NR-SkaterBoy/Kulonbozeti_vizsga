@@ -24,12 +24,8 @@ app.get("/", (req, res) => {
 app.get("/select", (req, res) => {
     let { table } = req.query
     if (!table) table = "albums"
-    db.select(`SELECT * FROM ${table}`, (e, rows) => {
-        if (e) {
-            console.error(e.message)
-            res.status(500).send("Internal Server error")
-            return
-        }
+    db.select(table, (err, rows) => {
+        if (err) return console.log(`Error occured: ${err}`)
         res.render("select", {
             page_title: "Lekérdezés",
             selected_table: table,
@@ -38,32 +34,43 @@ app.get("/select", (req, res) => {
     })
 })
 
-app.post("/insert", (req, res) => {
-    console.log(req)
+app.post("/insert-data", (req, res) => {
+    if (!req.body || Object.values(req.body).some(value => value === "")) {
+        return res.status(400).send({ message: "Empty request body. Please provide data to insert." });
+    }
 
+    db.insert("albums", req.body, (err, lid) => {
+        if (err) {
+            console.error(`Error occurred during insertion: ${err}`);
+            return res.status(500).send({ message: "Internal server error. Please try again later." });
+        }
+
+        console.log(`Data inserted successfully. Lid: ${lid}`);
+        res.redirect("/insert");
+    });
+});
+
+
+app.get("/insert", (req, res) => {
     res.render("insert", {
         page_title: "Lekérdezés",
     })
 })
 
-app.get("/insert", (req, res) => {
-    console.log(req)
-})
-
 
 app.get("/update", (req, res) => {
-	res.render({
-		page_title: "Rekord frissítése"
-	})
+    res.render({
+        page_title: "Rekord frissítése"
+    })
 })
 app.get("/del", (req, res) => {
-	res.render({
-		page_title: "Rekord törlése"
-	})
+    res.render({
+        page_title: "Rekord törlése"
+    })
 })
 
 // =========== Server Setup ===========
 const port = process.env.PORT || 3000
 app.listen(port, async () => {
-	console.log(`Server is running on http://localhost:${port}`)
+    console.log(`Server is running on http://localhost:${port}`)
 })
