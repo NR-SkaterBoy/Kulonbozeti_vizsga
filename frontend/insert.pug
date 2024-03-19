@@ -15,8 +15,8 @@ section
         option(value="playlists") playlists
         option(value="tracks") Tracks
 
-#content-albums.content.hidden 
-    form(action="insert-data" encrypte="multipart/form-data" method="post")
+#content-albums.content.hidden
+    form(action="insert-data/albums" encrypte="multipart/form-data" method="post")
         label(for="title") Title
         input(required  type="text" name="title") 
         label(for="artistid") Artist Id
@@ -24,13 +24,13 @@ section
         input(type="submit" value="submit")
 
 #content-artists.content.hidden
-    form(action="insert-data" encrypte="multipart/form-data" method="post")
+    form(action="insert-data/artists" encrypte="multipart/form-data" method="post")
         label(for="name") Name
         input(type="text" name="Name") 
         input(type="submit" value="submit")
 
 #content-customers.content.hidden
-    form(action="insert-data" encrypte="multipart/form-data" method="post")
+    form(action="insert-data/customers" encrypte="multipart/form-data" method="post")
         label(for='firstName') First Name
         input#firstName(type='text' name='FirstName' required='')
         label(for='lastName') Last Name
@@ -58,7 +58,7 @@ section
         input(type="submit" value="submit")
 
 #content-employees.content.hidden
-    form(action="insert-data" encrypte="multipart/form-data" method="post")
+    form(action="insert-data/employees" encrypte="multipart/form-data" method="post")
         label(for='lastName') Last Name
         input#lastName(type='text' name='LastName' required='')
         label(for='firstName') First Name
@@ -90,13 +90,13 @@ section
         input(type='submit' value='Submit')
 
 #content-genres.content.hidden 
-    form(action="insert-data" encrypte="multipart/form-data" method="post")
+    form(action="insert-data/genres" encrypte="multipart/form-data" method="post")
         label(for='name') Name
         input(type='text' name='name' required='')
-    input(type="submit" value="submit")
+        input(type="submit" value="submit")
 
 #content-invoices.content.hidden 
-    form(action="insert-data" encrypte="multipart/form-data" method="post")
+    form(action="insert-data/invoices" encrypte="multipart/form-data" method="post")
         label(for='customerId') Customer ID
         input#customerId(type='text' name='CustomerId' required='')
         label(for='invoiceDate') Invoice Date
@@ -116,7 +116,7 @@ section
         input(type="submit" value="submit")
 
 #content-invoice_items.content.hidden
-    form(action="insert-data" encrypte="multipart/form-data" method="post")
+    form(action="insert-data/invoice_items" encrypte="multipart/form-data" method="post")
         label(for='invoiceId') Invoice ID
         input#invoiceId(type='text' name='InvoiceId' required='')
         label(for='trackId') Track ID
@@ -128,19 +128,19 @@ section
         input(type="submit" value="submit")
 
 #content-media_types.content.hidden 
-    form(action="insert-data" encrypte="multipart/form-data" method="post")
+    form(action="insert-data/media_types" encrypte="multipart/form-data" method="post")
         label(for='name') Name
         input(type='text' name='name' required='')
         input(type="submit" value="submit")
 
 #content-playlists.content.hidden
-    form(action="insert-data" encrypte="multipart/form-data" method="post")
+    form(action="insert-data/playlists" encrypte="multipart/form-data" method="post")
         label(for='name') Name
         input(type='text' name='name' required='')
         input(type="submit" value="submit")
 
 #content-tracks.content.hidden 
-    form(action='/submit_album_info' method='get')
+    form(action='/insert-data/tracks' method='get')
         label(for='albumId') Album ID
         input#albumId(type='text' name='AlbumId' required='')
         label(for='mediaTypeId') Media Type ID
@@ -158,5 +158,5 @@ section
         input(type='submit' value='Submit')
 
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+script(src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous")
 script(src="/js/insertform.js")

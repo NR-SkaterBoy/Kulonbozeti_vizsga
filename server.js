@@ -34,18 +34,16 @@ app.get("/select", (req, res) => {
     })
 })
 
-app.post("/insert-data", (req, res) => {
-    if (!req.body || Object.values(req.body).some(value => value === "")) {
-        return res.status(400).send({ message: "Empty request body. Please provide data to insert." });
-    }
-
-    db.insert("albums", req.body, (err, lid) => {
+app.post("/insert-data/:table", (req, res) => {
+    const table = req.params.table
+    if (!req.body || Object.values(req.body).some(value => value === "")) return res.status(400).send({ message: "Empty request body. Please provide data to insert." });
+    if (table === undefined || table === null) return
+    db.insert(table, req.body, (err, lid) => {
         if (err) {
             console.error(`Error occurred during insertion: ${err}`);
             return res.status(500).send({ message: "Internal server error. Please try again later." });
         }
-
-        console.log(`Data inserted successfully. Lid: ${lid}`);
+        console.log(`Data inserted successfully. Data inserted to: ${table}, Data: ${Object.values(req.body)}, Last ID: ${lid}`);
         res.redirect("/insert");
     });
 });
@@ -59,12 +57,12 @@ app.get("/insert", (req, res) => {
 
 
 app.get("/update", (req, res) => {
-    res.render({
+    res.render("update", {
         page_title: "Rekord frissítése"
     })
 })
 app.get("/del", (req, res) => {
-    res.render({
+    res.render("delete", {
         page_title: "Rekord törlése"
     })
 })
