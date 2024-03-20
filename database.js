@@ -14,6 +14,11 @@ module.exports = class Database {
         })
     }
 
+    /**
+     * Display the specified data table
+     * @param {string} tableName Name of the table
+     * @param {function} callback Function to be called after the selection
+     */
     select(tableName, callback) {
         const query = `SELECT * FROM ${tableName}`
         this.db.all(query, (err, rows) => {
@@ -26,25 +31,30 @@ module.exports = class Database {
         })
     }
 
+    /**
+     * Insert new row into the specified table
+     * @param {string} tableName Name of the table
+     * @param {object} data Object of the data
+     * @param {function} callback Function to be called after the insertion
+     */
     insert(tableName, data, callback) {
-        const keys = Object.keys(data);
-        const values = Object.values(data);
-        const placeholders = keys.map(() => "?").join(", ");
-        const query = `INSERT INTO ${tableName} (${keys.join(", ")}) VALUES (${placeholders})`;
+        const keys = Object.keys(data)
+        const values = Object.values(data)
+        const placeholders = keys.map(() => "?").join(", ")
+        const query = `INSERT INTO ${tableName} (${keys.join(", ")}) VALUES (${placeholders})`
     
         this.db.run(query, values, function(err) {
             if (err) {
-                console.error("Error inserting data:", err.message);
-                return callback(err, null);
+                console.error("Error inserting data:", err.message)
+                return callback(err, null)
             }
-            console.log(`Successfully inserted data into ${tableName}`);
-            callback(null, this.lastID); // Return the ID of the last inserted row
-        });
+            console.log(`Successfully inserted data into ${tableName}`)
+            callback(null, this.lastID)
+        })
     }    
 
     /**
      * Updates an existing row in the specified table based on a where clause.
-     * 
      * @param {string} tableName - Name of the table to update data in.
      * @param {object} data - Object containing key-value pairs for the update.
      * @param {string} whereClause - SQL WHERE clause to identify the row to update.
@@ -61,13 +71,12 @@ module.exports = class Database {
                 return callback(err, null)
             }
             console.log(`Successfully updated data in ${tableName}`)
-            callback(null, this.changes) // Return the number of rows changed
+            callback(null, this.changes)
         })
     }
 
     /**
      * Deletes rows from the specified table based on a where clause.
-     * 
      * @param {string} tableName - Name of the table to delete data from.
      * @param {string} whereClause - SQL WHERE clause to identify rows to delete.
      * @param {function} callback - Function to be called after the deletion.

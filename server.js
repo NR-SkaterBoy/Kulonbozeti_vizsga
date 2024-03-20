@@ -5,8 +5,11 @@
 
 // =========== Imports ===========
 const express = require("express")
-require('dotenv').config()
 const Database = require("./database")
+const bodyParser = require('body-parser')
+require('dotenv').config()
+
+const { getAllButFirst, getPropertyName  } = require("./functions")
 
 // =========== App Setup ===========
 const app = express()
@@ -15,52 +18,56 @@ app.set("view engine", "pug")
 app.set("views", __dirname + "/frontend")
 app.use(express.static("./static"))
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json())
 
 // =========== App routes ===========
-app.get("/", (req, res) => {
-    res.render("index", { page_title: "Home" })
-})
+// Render the index page
+app.get("/", (req, res) => { res.render("index", { page_title: "Home" }) })
 
+// Render the select page
 app.get("/select", (req, res) => {
     let { table } = req.query
     if (!table) table = "albums"
     db.select(table, (err, rows) => {
         if (err) return console.log(`Error occured: ${err}`)
-        res.render("select", {
-            page_title: "Lekérdezés",
-            selected_table: table,
-            rows: rows
-        })
+        res.render("select", { page_title: "Lekérdezés", selected_table: table, rows: rows })
     })
 })
 
+// Render the insert page
+app.get("/insert", (req, res) => { res.render("insert", { page_title: "Lekérdezés" }) })
 app.post("/insert-data/:table", (req, res) => {
     const table = req.params.table
-    if (!req.body || Object.values(req.body).some(value => value === "")) return res.status(400).send({ message: "Empty request body. Please provide data to insert." });
+    if (!req.body || Object.values(req.body).some(v => v === "")) return
     if (table === undefined || table === null) return
     db.insert(table, req.body, (err, lid) => {
-        if (err) {
-            console.error(`Error occurred during insertion: ${err}`);
-            return res.status(500).send({ message: "Internal server error. Please try again later." });
-        }
-        console.log(`Data inserted successfully. Data inserted to: ${table}, Data: ${Object.values(req.body)}, Last ID: ${lid}`);
+        if (err) return console.error(`Error occurred during insertion: ${err}`)
+        console.log(`Data inserted successfully. Data inserted to: ${table}, Data: ${Object.values(req.body)}, Last ID: ${lid}`)
         res.redirect("/insert");
-    });
-});
-
-
-app.get("/insert", (req, res) => {
-    res.render("insert", {
-        page_title: "Lekérdezés",
     })
 })
 
-
+// Render the update page
 app.get("/update", (req, res) => {
-    res.render("update", {
-        page_title: "Rekord frissítése"
+    let { table } = req.query
+    if (!table) table = "albums"
+    db.select(table, (err, rows) => {
+        if (err) return console.log(`Error occured: ${err}`)
+        res.render("update", { page_title: "Rekord frissítése", selected_table: table, rows: rows })
     })
 })
+app.post("/update-process", (req, res) => {
+    const { table, ...updateData } = req.body
+    const where = Object.keys(req.body).find(key => key !== 'table')
+    const val = req.body[where]
+    const whereClause = `${where} = ${val}`
+    db.update(table, updateData, whereClause, (err, changes) => {
+        if (err) return res.status(500).json({ error: "Error updating data" })
+        return res.json({ message: `Successfully updated data in ${table}`, changes })
+    })
+})
+
+// Render the delete page
 app.get("/del", (req, res) => {
     res.render("delete", {
         page_title: "Rekord törlése"

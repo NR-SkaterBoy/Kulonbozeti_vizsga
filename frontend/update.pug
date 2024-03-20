@@ -1,5 +1,51 @@
 include ./components/head.pug
 include ./components/navbar.pug
 
-section 
-    
+section
+    h1.mt-4.mb-4.text-center Adatbázis táblái
+    .container
+        .row
+            .col
+                form.mt-5(action="/update" method="get")
+                    .input-group.mb-3
+                        .input-group-prepend
+                            label.input-group-text(for='inputGroupSelect01') Table:
+                        select(name="table")#inputGroupSelect01.custom-select
+                            option --- 
+                            option(value="albums") Albums
+                            option(value="sqlite_sequence") sqlite_sequence
+                            option(value="artists") artists
+                            option(value="customers") customers
+                            option(value="employees") employees
+                            option(value="genres") genres
+                            option(value="invoices") invoices
+                            option(value="invoice_items") invoice_items
+                            option(value="media_types") media_types
+                            option(value="playlists") playlists
+                            option(value="playlist_track") playlist_track
+                            option(value="tracks") Tracks
+                            option(value="sqlite_stat1") sqlite stat1
+                        button(type="submit") Kiválaszt
+                input#searchInput(type='text' placeholder='Keresés...').form-control.mr-sm-2
+                
+            .col
+                h3.mb-2 Táblázat adatai:
+                p Kiválasztott táblázat: #{selected_table}
+                p Sorainak száma: #{rows.length}
+
+    table.table.table-bordered.border-primary.mt-5(id=selected_table)
+        thead
+            tr
+                each col, idx in rows[0] ? Object.keys(rows[0]) : []
+                    th.fix-cell-width= col
+
+        tbody 
+            each row, rowIndex in rows
+                tr
+                    each val, colIndex in row ? Object.values(row) : []
+                        td.fix-cell-width
+                            input(type='text', value=val, id='input_' + rowIndex + '_' + colIndex, name='value')
+                    td.fix-cell-width
+                        button(type='button', onclick='sendData("' + selected_table + '", ' + rowIndex + ')') Update
+
+script(src="/js/update.js") 

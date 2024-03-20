@@ -140,7 +140,7 @@ section
         input(type="submit" value="submit")
 
 #content-tracks.content.hidden 
-    form(action='/insert-data/tracks' method='get')
+    form(action='/insert-data/tracks' method='post')
         label(for='albumId') Album ID
         input#albumId(type='text' name='AlbumId' required='')
         label(for='mediaTypeId') Media Type ID
