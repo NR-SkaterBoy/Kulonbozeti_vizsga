@@ -1,12 +1,16 @@
 /**
  * @author Neuvald Richárd (FGTV2E)
- * @description Adatbázis (Database)
+ * @description Adatbázis (Database), tartalmazza a select, insert, update és delete funkciókat
  */
 
 // =========== Imports ===========
 const sqlite3 = require("sqlite3").verbose()
 
 module.exports = class Database {
+    /**
+     * Creates a new instance of the Database class.
+     * @param {string} databasePath - The path to the database file.
+     */
     constructor(databasePath) {
         this.db = new sqlite3.Database(databasePath, sqlite3.OPEN_READWRITE, (err) => {
             if (err) return console.log("Error occured:", err.message)
@@ -42,8 +46,8 @@ module.exports = class Database {
         const values = Object.values(data)
         const placeholders = keys.map(() => "?").join(", ")
         const query = `INSERT INTO ${tableName} (${keys.join(", ")}) VALUES (${placeholders})`
-    
-        this.db.run(query, values, function(err) {
+
+        this.db.run(query, values, function (err) {
             if (err) {
                 console.error("Error inserting data:", err.message)
                 return callback(err, null)
@@ -51,7 +55,7 @@ module.exports = class Database {
             console.log(`Successfully inserted data into ${tableName}`)
             callback(null, this.lastID)
         })
-    }    
+    }
 
     /**
      * Updates an existing row in the specified table based on a where clause.
@@ -76,24 +80,29 @@ module.exports = class Database {
     }
 
     /**
-     * Deletes rows from the specified table based on a where clause.
-     * @param {string} tableName - Name of the table to delete data from.
-     * @param {string} whereClause - SQL WHERE clause to identify rows to delete.
+     * Deletes a row from a table in the database.
+     * @param {string} tableName - Name of the table to delete the row from.
+     * @param {number} rowIndex - Index of the row to delete.
+     * @param {string} colName - Name of the column used as the row identifier.
      * @param {function} callback - Function to be called after the deletion.
      */
-    delete(tableName, whereClause, callback) {
-        const query = `DELETE FROM ${tableName} WHERE ${whereClause}`
+    delete(tableName, rowIndex, colName, callback) {
+        const query = `DELETE FROM ${tableName} WHERE ${colName} = ?`
 
-        this.db.run(query, (err) => {
+        this.db.run(query, [rowIndex], (err) => {
             if (err) {
                 console.error("Error deleting data:", err.message)
                 return callback(err, null)
             }
-            console.log(`Successfully deleted data from ${tableName}`)
-            callback(null, this.changes) // Return the number of rows deleted
+            console.log(`Successfully deleted row ${rowIndex} from ${tableName}`)
+            callback(null, this.changes)
         })
     }
 
+    /**
+     * Closes the database connection.
+     * @param {function} [callback] - A function to be called after the connection is closed.
+     */
     close() {
         this.db.close((err) => {
             if (err) return console.error(err.message)

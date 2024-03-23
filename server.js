@@ -6,10 +6,10 @@
 // =========== Imports ===========
 const express = require("express")
 const Database = require("./database")
-const bodyParser = require('body-parser')
-require('dotenv').config()
-
-const { getAllButFirst, getPropertyName  } = require("./functions")
+const bodyParser = require("body-parser")
+const helmet = require("helmet")
+const morgan = require("morgan")
+require("dotenv").config()
 
 // =========== App Setup ===========
 const app = express()
@@ -19,6 +19,8 @@ app.set("views", __dirname + "/frontend")
 app.use(express.static("./static"))
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json())
+app.use(helmet())
+app.use(morgan("dev"))
 
 // =========== App routes ===========
 // Render the index page
@@ -30,7 +32,7 @@ app.get("/select", (req, res) => {
     if (!table) table = "albums"
     db.select(table, (err, rows) => {
         if (err) return console.log(`Error occured: ${err}`)
-        res.render("select", { page_title: "Lekérdezés", selected_table: table, rows: rows })
+        res.render("select", { page_title: "Request data", selected_table: table, rows: rows })
     })
 })
 
@@ -58,7 +60,7 @@ app.get("/update", (req, res) => {
 })
 app.post("/update-process", (req, res) => {
     const { table, ...updateData } = req.body
-    const where = Object.keys(req.body).find(key => key !== 'table')
+    const where = Object.keys(req.body).find(key => key !== "table")
     const val = req.body[where]
     const whereClause = `${where} = ${val}`
     db.update(table, updateData, whereClause, (err, changes) => {
@@ -68,9 +70,20 @@ app.post("/update-process", (req, res) => {
 })
 
 // Render the delete page
-app.get("/del", (req, res) => {
-    res.render("delete", {
-        page_title: "Rekord törlése"
+app.get("/delete", (req, res) => {
+    let { table } = req.query
+    if (!table) table = "albums"
+    db.select(table, (err, rows) => {
+        if (err) return console.log(`Error occured: ${err}`)
+        res.render("delete", { page_title: "Rekordok törlése", selected_table: table, rows: rows })
+    })
+})
+app.post("/delete-process", (req, res) => {
+    const { table, rowIndex, colName } = req.body
+    console.log(req.body)
+    db.delete(table, rowIndex+1, colName, (err) => {
+        if (err) return console.log(`Error occured: ${err}`)
+        console.log(`Data deleted successfully. Data deleted from: ${table}, Data: ${Object.values(req.body)}, Row index: ${rowIndex}`)
     })
 })
 
