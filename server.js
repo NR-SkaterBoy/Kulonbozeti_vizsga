@@ -19,7 +19,7 @@ app.set("views", __dirname + "/frontend")
 app.use(express.static("./static"))
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json())
-app.use(helmet())
+// app.use(helmet())
 app.use(morgan("dev"))
 
 // =========== App routes ===========
@@ -40,6 +40,7 @@ app.get("/select", (req, res) => {
 app.get("/insert", (req, res) => { res.render("insert", { page_title: "Lekérdezés" }) })
 app.post("/insert-data/:table", (req, res) => {
     const table = req.params.table
+    console.log(req.body)
     if (!req.body || Object.values(req.body).some(v => v === "")) return
     if (table === undefined || table === null) return
     db.insert(table, req.body, (err, lid) => {
@@ -81,9 +82,9 @@ app.get("/delete", (req, res) => {
 app.post("/delete-process", (req, res) => {
     const { table, rowIndex, colName } = req.body
     console.log(req.body)
-    db.delete(table, rowIndex+1, colName, (err) => {
+    db.delete(table, rowIndex, colName, (err) => {
         if (err) return console.log(`Error occured: ${err}`)
-        console.log(`Data deleted successfully. Data deleted from: ${table}, Data: ${Object.values(req.body)}, Row index: ${rowIndex}`)
+        return res.json({ message: `Successfully deleted data in ${table}` })
     })
 })
 

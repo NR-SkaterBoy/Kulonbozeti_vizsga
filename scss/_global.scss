@@ -14,11 +14,10 @@ html, body {
     width: max-content;
 }
 
-img {
-    height: 300px;
-    width: 300px;
-}
-
 .hidden{
     display:none;
+}
+
+a:any-link {
+    text-decoration: none !important;
 }

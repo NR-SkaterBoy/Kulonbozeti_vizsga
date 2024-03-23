@@ -4,9 +4,9 @@ include ./components/navbar.pug
 section
     h1.mt-4.mb-4.text-center Adatbázis táblái
     .container
-        .row.justify-content-center
-            .col-lg-8
-                form.mt-5(action="/select" method="get")
+        .row
+            .col
+                form.mt-5(action="/delete" method="GET")
                     .input-group.mb-3
                         .input-group-prepend
                             label.input-group-text(for='inputGroupSelect01') Table:
@@ -24,31 +24,28 @@ section
                             option(value="playlist_track") playlist_track
                             option(value="tracks") Tracks
                             option(value="sqlite_stat1") sqlite stat1
-                        button(type="submit").btn.btn-primary Kiválaszt
+                        button(type="submit") Kiválaszt
                 input#searchInput(type='text' placeholder='Keresés...').form-control.mr-sm-2
 
-            .col-lg-4
+            .col
                 h3.mb-2 Táblázat adatai:
                 p Kiválasztott táblázat: #{selected_table}
                 p Sorainak száma: #{rows.length}
 
-    .container
-        .row.justify-content-center
-            .col-lg-12
-                .table-responsive
-                    table.table.table-responsive.table-borderless.table-striped.table-dark#myTable
-                        thead
-                            tr
-                                each col, idx in (rows[0] ? Object.keys(rows[0]) : [])
-                                    th.fix-cell-width(onclick=`sortTable(${idx})`)
-                                        i.fas.fa-sort
-                                        = col
+    .table-responsive
+        table.table.table-responsive.table-borderless.table-striped.table-dark#myTable
+            thead
+                tr
+                    each col, idx in rows[0] ? Object.keys(rows[0]) : []
+                        th.fix-cell-width= col
 
-                        tbody
-                            each row, idx in rows
-                                tr
-                                    each val in row ? Object.values(row) : []
-                                        td.fix-cell-width= val
+            tbody 
+                each row, rowIndex in rows
+                    tr
+                        each val, colIndex in row ? Object.values(row) : []
+                            td.fix-cell-width= val
+                        td.fix-cell-width
+                            button(type='button' onclick='deleteData("' + selected_table + '", "' + row[Object.keys(row)[0]] + '")').btn.btn-danger Delete
 
 
 include ./components/footer.pug

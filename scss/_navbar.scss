@@ -1,4 +1,4 @@
-$bg-nav-color: #474343;
+$bg-nav-color: #2d3e50;
 $txt-color: #fff;
 
 .nav {
@@ -6,7 +6,7 @@ $txt-color: #fff;
         background-color: $bg-nav-color !important;
     }
 
-    &-link {
+    &-link, &bar-brand {
         color: $txt-color !important;
     }
 }
