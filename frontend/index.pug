@@ -1,32 +1,33 @@
 include ./components/head.pug
 include ./components/navbar.pug
 
--
-    var pageElements = [
-        { img: "/media/select.png", title: "Lekérdezés", des: "Az oldalon lehetősége van a felhasználónak az adatbázisban található táblázatok között váltogatnia. Mindemellett az oldal tartalmaz egy keresőmenüt, ami real-time, azaz minden egyes karakter után megjeleníti a felhasználóknak a lehetséges elemeket a táblázaton belül. A header részbe beépítettem egy rendezést, mely ascendig vagy descendig, azaz csökkenő és növekvő módon rendez. Ennek a rendezésnek a sebessége az adatok mennyiségétől függ." },
-        { img: "/media/insert.png", title: "Új rekord", des: "A felhasználónak lehetősége nyílik rá, hogy kiválaszza a táblázatot, majd új értékeket adjon hozzá. Új érték hozzáadása után a felhasználót az oldal értesíti a sikerességről, illetve ha hiba történt a rendszerben" },
-        { img: "/media/update.png", title: "Rekord frissítése", des: "A felhasználónak lehetősége nyílik a táblázat értékeinek frssítésére, melyet egy mentés gombbal frissíthet a rendszerben" },
-        { img: "/media/delete.png", title: "Rekord törlése", des: "A felhasználónak lehetősége nyílik rá, hogy a táblázatot, illetve annak sorait törölhesse" }
-    ]
+section
+    .container.mt-5
+        .row
+            .col
+                .text-center
+                    img.img-fluid.prof-img(src='/media/me.svg')
+                h1.text-center.mt-4 Különbözeti Vizsga 2024
+                h4.text-center.mt-2 Neuvald Richárd - FGTV2E
+                .text-center
+                    svg(viewbox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' stroke='#fff').scroll-down.mt-5
+                        g#SVGRepo_bgCarrier(stroke-width='0')
+                        g#SVGRepo_tracerCarrier(stroke-linecap='round' stroke-linejoin='round')
+                        g#SVGRepo_iconCarrier
+                            path(d='M5 15C5 16.8565 5.73754 18.6371 7.05029 19.9498C8.36305 21.2626 10.1435 21.9999 12 21.9999C13.8565 21.9999 15.637 21.2626 16.9498 19.9498C18.2625 18.6371 19 16.8565 19 15V9C19 7.14348 18.2625 5.36305 16.9498 4.05029C15.637 2.73754 13.8565 2 12 2C10.1435 2 8.36305 2.73754 7.05029 4.05029C5.73754 5.36305 5 7.14348 5 9V15Z' stroke='#fff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
+                            path(d='M12 6V14' stroke='#fff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
+                            path(d='M15 11L12 14L9 11' stroke='#fff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
 
-.section.mt-5
-    .container
-        h1.text-center Webprogramramozás II. Különbözeti Vizsga
 
-    .container
-        h4.text-center.mt-5 Projektem
-        each page, idx in pageElements
-            if idx % 2 == 0
-                .row.mt-5 
-                    .col-6
-                        img(src=page.img, alt=page.title)
-                    .col-6
-                        h4= page.title
-                        p= page.des
-            else 
-                .row.mt-5
-                    .col-6
-                        h4= page.title
-                        p= page.des
-                    .col-6
-                        img(src=page.img, alt=page.title)
+section
+    .container.mt-5
+        .row.mt-5 
+            .col-6
+                img(src="/media/summary.png" alt="Öszegzés").img-fluid.mt--1
+            .col-6
+                h4 Projekt Összegzése
+                p A weboldal lehetőséget nyújt a felhasználónak, hogy egy előre elkészített adatbázis adatait megtekintse, hozzáadjon és frissítsen adatokat valamint adatokat töröljön. Az oldal fejlesztéséhez backendnek NodeJS alapokon Express.js-t használtam, míg a frontenden a korábban Jade, manapság PUG néven ismert keretrendszert alkalmaztam. A forrásfileokban két lényeges részre vannak osztva, a backendre és a frontendre. A backend tartalmazza a server.js-t  melyben beállítom a szertvert a futtatáshoz. Az alap port 3000, ez azonban igény szerint változtatható. Automatikusan a portot a .env nevű fileból olvassa be a backend. Található itt egy database.js, melyben az adatbázis alapvető funkcióit definiálom. A másik lényegi rész a frontend, melyben a felhasználó számára látható tartalom található.
+
+
+
+include ./components/footer.pug
