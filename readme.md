@@ -9,6 +9,11 @@ Neuvald Richárd (FGTV2E) nevű tanuló vagyok. 2022-ben kezdtem meg tanulmánya
 
 Valamint a közeljövőben tervezem megjeleníteni a MulticolorBot Dashboardot.
 
+## Projekt futtatása, telepítése
+
+1. A főmappán melül ***npm i***, mely telepíti a szükséges node csomagokat.
+2. ***node .*** vagy ***node server.js*** mellyel a webszerver elindul a 3000-es porton
+
 ## Projekt Leírása
 
 A weboldal lehetőséget teremt a felhasználónak, hogy egy előre elkészített adatbázis tekintsen meg, valamint szerkessze, beleértve az adatok hozzáadását, frissítését és törlését. 
@@ -34,4 +39,4 @@ Mint elmlítettem, sablonmotornak a **PUG**-ot választottam, így a frontendes 
 A **static** nevű mappában találhatóak meg az oldalon használt képek, stílusok valamint JavaScript kódok.
 Az **scss** mappában találhatóak meg a stílusért felelős fájlok, melynek lefordításához szzükséges egy sass fájl fordító.
 
-#### Módosítás dátuma: 2024.03.23.
+#### Módosítás dátuma: 2024.03.24.
