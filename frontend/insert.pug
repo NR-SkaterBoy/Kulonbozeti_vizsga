@@ -2,159 +2,214 @@ include ./components/head.pug
 include ./components/navbar.pug
 
 section
-    select#options(name="selectedItem")
-        option --
-        option(value="albums") Albums
-        option(value="artists") artists
-        option(value="customers") customers
-        option(value="employees") employees
-        option(value="genres") genres
-        option(value="invoices") invoices
-        option(value="invoice_items") invoice_items
-        option(value="media_types") media_types
-        option(value="playlists") playlists
-        option(value="tracks") Tracks
+    .container
+        .col-md-6
+            label(for="").mt-5
+                h3 Kérlek válassz ki egy formot:
+            select#options(name="selectedItem").form-select
+                option --
+                option(value="albums") Albums
+                option(value="artists") artists
+                option(value="customers") customers
+                option(value="employees") employees
+                option(value="genres") genres
+                option(value="invoices") invoices
+                option(value="invoice_items") invoice_items
+                option(value="media_types") media_types
+                option(value="playlists") playlists
+                option(value="tracks") Tracks
+.container.mt-5
+    #content-albums.content.hidden
+        form(action="insert-data/albums" encrypte="multipart/form-data" method="post")
+            .input-group.mb-3
+                label(for="title").input-group-text Title
+                input(required  type="text" name="title").form-control
+            .input-group.mb-3
+                label(for="artistid").input-group-text Artist Id
+                input(required type="number" name="artistid").form-control
+            input(type="submit" value="Insert").btn.btn-primary
 
-#content-albums.content.hidden
-    form(action="insert-data/albums" encrypte="multipart/form-data" method="post")
-        label(for="title") Title
-        input(required  type="text" name="title") 
-        label(for="artistid") Artist Id
-        input(required type="number" name="artistid")
-        input(type="submit" value="submit")
+    #content-artists.content.hidden
+        form(action="insert-data/artists" encrypte="multipart/form-data" method="post")
+            .input-group.mb-3
+                label.input-group-text(for="name") Name
+                input.form-control(type="text" name="Name") 
+            input(type="submit" value="Insert").btn.btn-primary
 
-#content-artists.content.hidden
-    form(action="insert-data/artists" encrypte="multipart/form-data" method="post")
-        label(for="name") Name
-        input(type="text" name="Name") 
-        input(type="submit" value="submit")
+    #content-customers.content.hidden
+        form(action="insert-data/customers" encrypte="multipart/form-data" method="post")
+            .input-group.mb-3
+                label.input-group-text(for="firstName") First Name
+                input.form-control#firstName(type="text" name="FirstName" required="")
+            .input-group.mb-3
+                label.input-group-text(for="lastName") Last Name
+                input.form-control#lastName(type="text" name="LastName" required="")
+            .input-group.mb-3
+                label.input-group-text(for="company") Company
+                input.form-control#company(type="text" name="Company")
+            .input-group.mb-3
+                label.input-group-text(for="address") Address
+                input.form-control#address(type="text" name="Address")
+            .input-group.mb-3
+                label.input-group-text(for="city") City
+                input.form-control#city(type="text" name="City")
+            .input-group.mb-3
+                label.input-group-text(for="state") State
+                input.form-control#state(type="text" name="State")
+            .input-group.mb-3
+                label.input-group-text(for="country") Country
+                input.form-control#country(type="text" name="Country")
+            .input-group.mb-3
+                label.input-group-text(for="postalCode") Postal Code
+                input.form-control#postalCode(type="text" name="PostalCode")
+            .input-group.mb-3
+                label.input-group-text(for="phone") Phone
+                input.form-control#phone(type="text" name="Phone")
+            .input-group.mb-3
+                label.input-group-text(for="fax") Fax
+                input.form-control#fax(type="text" name="Fax")
+            .input-group.mb-3
+                label.input-group-text(for="email") Email
+                input.form-control#email(type="email" name="Email" required="")
+            .input-group.mb-3
+                label.input-group-text(for="supportRepId") Support Representative ID
+                input.form-control#supportRepId(type="text" name="SupportRepId")
+            input(type="submit" value="Insert").btn.btn-primary
 
-#content-customers.content.hidden
-    form(action="insert-data/customers" encrypte="multipart/form-data" method="post")
-        label(for='firstName') First Name
-        input#firstName(type='text' name='FirstName' required='')
-        label(for='lastName') Last Name
-        input#lastName(type='text' name='LastName' required='')
-        label(for='company') Company
-        input#company(type='text' name='Company')
-        label(for='address') Address
-        input#address(type='text' name='Address')
-        label(for='city') City
-        input#city(type='text' name='City')
-        label(for='state') State
-        input#state(type='text' name='State')
-        label(for='country') Country
-        input#country(type='text' name='Country')
-        label(for='postalCode') Postal Code
-        input#postalCode(type='text' name='PostalCode')
-        label(for='phone') Phone
-        input#phone(type='text' name='Phone')
-        label(for='fax') Fax
-        input#fax(type='text' name='Fax')
-        label(for='email') Email
-        input#email(type='email' name='Email' required='')
-        label(for='supportRepId') Support Representative ID
-        input#supportRepId(type='text' name='SupportRepId')
-        input(type="submit" value="submit")
+    #content-employees.content.hidden
+        form(action="insert-data/employees" encrypte="multipart/form-data" method="post")
+            .input-group.mb-3
+                label.input-group-text(for="lastName") Last Name
+                input.form-control#lastName(type="text" name="LastName" required="")
+            .input-group.mb-3
+                label.input-group-text(for="firstName") First Name
+                input.form-control#firstName(type="text" name="FirstName" required="")
+            .input-group.mb-3
+                label.input-group-text(for="title") Title
+                input.form-control#title(type="text" name="Title")
+            .input-group.mb-3
+                label.input-group-text(for="reportsTo") Reports To
+                input.form-control#reportsTo(type="text" name="ReportsTo")
+            .input-group.mb-3
+                label.input-group-text(for="birthDate") Birth Date
+                input.form-control#birthDate(type="date" name="BirthDate")
+            .input-group.mb-3
+                label.input-group-text(for="hireDate") Hire Date
+                input.form-control#hireDate(type="date" name="HireDate")
+            .input-group.mb-3
+                label.input-group-text(for="address") Address
+                input.form-control#address(type="text" name="Address")
+            .input-group.mb-3
+                label.input-group-text(for="city") City
+                input.form-control#city(type="text" name="City")
+            .input-group.mb-3
+                label.input-group-text(for="state") State
+                input.form-control#state(type="text" name="State")
+            .input-group.mb-3
+                label.input-group-text(for="country") Country
+                input.form-control#country(type="text" name="Country")
+            .input-group.mb-3
+                label.input-group-text(for="postalCode") Postal Code
+                input.form-control#postalCode(type="text" name="PostalCode")
+            .input-group.mb-3
+                label.input-group-text(for="phone") Phone
+                input.form-control#phone(type="text" name="Phone")
+            .input-group.mb-3
+                label.input-group-text(for="fax") Fax
+                input.form-control#fax(type="text" name="Fax")
+            .input-group.mb-3
+                label.input-group-text(for="email") Email
+                input.form-control#email(type="email" name="Email" required="")
+            input(type="submit" value="Insert").btn.btn-primary
 
-#content-employees.content.hidden
-    form(action="insert-data/employees" encrypte="multipart/form-data" method="post")
-        label(for='lastName') Last Name
-        input#lastName(type='text' name='LastName' required='')
-        label(for='firstName') First Name
-        input#firstName(type='text' name='FirstName' required='')
-        label(for='title') Title
-        input#title(type='text' name='Title')
-        label(for='reportsTo') Reports To
-        input#reportsTo(type='text' name='ReportsTo')
-        label(for='birthDate') Birth Date
-        input#birthDate(type='date' name='BirthDate')
-        label(for='hireDate') Hire Date
-        input#hireDate(type='date' name='HireDate')
-        label(for='address') Address
-        input#address(type='text' name='Address')
-        label(for='city') City
-        input#city(type='text' name='City')
-        label(for='state') State
-        input#state(type='text' name='State')
-        label(for='country') Country
-        input#country(type='text' name='Country')
-        label(for='postalCode') Postal Code
-        input#postalCode(type='text' name='PostalCode')
-        label(for='phone') Phone
-        input#phone(type='text' name='Phone')
-        label(for='fax') Fax
-        input#fax(type='text' name='Fax')
-        label(for='email') Email
-        input#email(type='email' name='Email' required='')
-        input(type='submit' value='Submit')
+    #content-genres.content.hidden 
+        form(action="insert-data/genres" encrypte="multipart/form-data" method="post")
+            .input-group.mb-3
+                label.input-group-text(for="name") Name
+                input.form-control(type="text" name="name" required="")
+            input(type="submit" value="Insert").btn.btn-primary
 
-#content-genres.content.hidden 
-    form(action="insert-data/genres" encrypte="multipart/form-data" method="post")
-        label(for='name') Name
-        input(type='text' name='name' required='')
-        input(type="submit" value="submit")
+    #content-invoices.content.hidden 
+        form(action="insert-data/invoices" encrypte="multipart/form-data" method="post")
+            .input-group.mb-3
+                label.input-group-text(for="customerId") Customer ID
+                input.form-control#customerId(type="text" name="CustomerId" required="")
+            .input-group.mb-3
+                label.input-group-text(for="invoiceDate") Invoice Date
+                input.form-control#invoiceDate(type="date" name="InvoiceDate" required="")
+            .input-group.mb-3
+                label.input-group-text(for="billingAddress") Billing Address
+                input.form-control#billingAddress(type="text" name="BillingAddress" required="")
+            .input-group.mb-3
+                label.input-group-text(for="billingCity") Billing City
+                input.form-control#billingCity(type="text" name="BillingCity" required="")
+            .input-group.mb-3
+                label.input-group-text(for="billingState") Billing State
+                input.form-control#billingState(type="text" name="BillingState")
+            .input-group.mb-3
+                label.input-group-text(for="billingCountry") Billing Country
+                input.form-control#billingCountry(type="text" name="BillingCountry" required="")
+            .input-group.mb-3
+                label.input-group-text(for="billingPostalCode") Billing Postal Code
+                input.form-control#billingPostalCode(type="text" name="BillingPostalCode" required="")
+            .input-group.mb-3
+                label.input-group-text(for="total") Total
+                input.form-control#total(type="text" name="Total" required="")
+            input(type="submit" value="Insert").btn.btn-primary
 
-#content-invoices.content.hidden 
-    form(action="insert-data/invoices" encrypte="multipart/form-data" method="post")
-        label(for='customerId') Customer ID
-        input#customerId(type='text' name='CustomerId' required='')
-        label(for='invoiceDate') Invoice Date
-        input#invoiceDate(type='date' name='InvoiceDate' required='')
-        label(for='billingAddress') Billing Address
-        input#billingAddress(type='text' name='BillingAddress' required='')
-        label(for='billingCity') Billing City
-        input#billingCity(type='text' name='BillingCity' required='')
-        label(for='billingState') Billing State
-        input#billingState(type='text' name='BillingState')
-        label(for='billingCountry') Billing Country
-        input#billingCountry(type='text' name='BillingCountry' required='')
-        label(for='billingPostalCode') Billing Postal Code
-        input#billingPostalCode(type='text' name='BillingPostalCode' required='')
-        label(for='total') Total
-        input#total(type='text' name='Total' required='')
-        input(type="submit" value="submit")
+    #content-invoice_items.content.hidden
+        form(action="insert-data/invoice_items" encrypte="multipart/form-data" method="post")
+            .input-group.mb-3
+                label.input-group-text(for="invoiceId") Invoice ID
+                input.form-control#invoiceId(type="text" name="InvoiceId" required="")
+            .input-group.mb-3
+                label.input-group-text(for="trackId") Track ID
+                input.form-control#trackId(type="text" name="TrackId" required="")
+            .input-group.mb-3
+                label.input-group-text(for="unitPrice") Unit Price
+                input.form-control#unitPrice(type="number" name="UnitPrice" step="0.01" required="")
+            .input-group.mb-3
+                label.input-group-text(for="quantity") Quantity
+                input.form-control#quantity(type="number" name="Quantity" required="")
+            input(type="submit" value="Insert").btn.btn-primary
 
-#content-invoice_items.content.hidden
-    form(action="insert-data/invoice_items" encrypte="multipart/form-data" method="post")
-        label(for='invoiceId') Invoice ID
-        input#invoiceId(type='text' name='InvoiceId' required='')
-        label(for='trackId') Track ID
-        input#trackId(type='text' name='TrackId' required='')
-        label(for='unitPrice') Unit Price
-        input#unitPrice(type='number' name='UnitPrice' step='0.01' required='')
-        label(for='quantity') Quantity
-        input#quantity(type='number' name='Quantity' required='')
-        input(type="submit" value="submit")
+    #content-media_types.content.hidden 
+        form(action="insert-data/media_types" encrypte="multipart/form-data" method="post")
+            .input-group.mb-3
+                label.input-group-text(for="name") Name
+                input.form-control(type="text" name="name" required="")
+            input(type="submit" value="Insert").btn.btn-primary
 
-#content-media_types.content.hidden 
-    form(action="insert-data/media_types" encrypte="multipart/form-data" method="post")
-        label(for='name') Name
-        input(type='text' name='name' required='')
-        input(type="submit" value="submit")
+    #content-playlists.content.hidden
+        form(action="insert-data/playlists" encrypte="multipart/form-data" method="post")
+            .input-group.mb-3
+                label.input-group-text(for="name") Name
+                input.form-control(type="text" name="name" required="")
+            input(type="submit" value="Insert").btn.btn-primary
 
-#content-playlists.content.hidden
-    form(action="insert-data/playlists" encrypte="multipart/form-data" method="post")
-        label(for='name') Name
-        input(type='text' name='name' required='')
-        input(type="submit" value="submit")
-
-#content-tracks.content.hidden 
-    form(action='/insert-data/tracks' method='post')
-        label(for='albumId') Album ID
-        input#albumId(type='text' name='AlbumId' required='')
-        label(for='mediaTypeId') Media Type ID
-        input#mediaTypeId(type='text' name='MediaTypeId' required='')
-        label(for='genreId') Genre ID
-        input#genreId(type='text' name='GenreId' required='')
-        label(for='composer') Composer
-        input#composer(type='text' name='Composer')
-        label(for='milliseconds') Milliseconds
-        input#milliseconds(type='text' name='Milliseconds')
-        label(for='bytes') Bytes
-        input#bytes(type='text' name='Bytes')
-        label(for='unitPrice') Unit Price
-        input#unitPrice(type='text' name='UnitPrice' required='')
-        input(type='submit' value='Submit')
+    #content-tracks.content.hidden 
+        form(action="/insert-data/tracks" method="post")
+            .input-group.mb-3
+                label.input-group-text(for="albumId") Album ID
+                input.form-control#albumId(type="text" name="AlbumId" required="")
+            .input-group.mb-3
+                label.input-group-text(for="mediaTypeId") Media Type ID
+                input.form-control#mediaTypeId(type="text" name="MediaTypeId" required="")
+            .input-group.mb-3
+                label.input-group-text(for="genreId") Genre ID
+                input.form-control#genreId(type="text" name="GenreId" required="")
+            .input-group.mb-3
+                label.input-group-text(for="composer") Composer
+                input.form-control#composer(type="text" name="Composer")
+            .input-group.mb-3
+                label.input-group-text(for="milliseconds") Milliseconds
+                input.form-control#milliseconds(type="text" name="Milliseconds")
+            .input-group.mb-3
+                label.input-group-text(for="bytes") Bytes
+                input.form-control#bytes(type="text" name="Bytes")
+            .input-group.mb-3
+                label.input-group-text(for="unitPrice") Unit Price
+                input.form-control#unitPrice(type="text" name="UnitPrice" required="")
+            input(type="submit" value="Insert").btn.btn-primary
 
 include ./components/footer.pug
