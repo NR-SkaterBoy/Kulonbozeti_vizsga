@@ -54,15 +54,15 @@ function filterTable() {
     table = document.getElementById("myTable")
     tr = table.getElementsByTagName("tr")
     for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td");
+        td = tr[i].getElementsByTagName("td")
         for (var j = 0; j < td.length; j++) {
             if (td[j]) {
-                txtValue = td[j].textContent || td[j].innerText;
+                txtValue = td[j].textContent || td[j].innerText
                 if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
+                    tr[i].style.display = ""
                     break;
                 } else {
-                    tr[i].style.display = "none";
+                    tr[i].style.display = "none"
                 }
             }
         }
@@ -88,14 +88,14 @@ function sendData(selectedTable, rowIndex) {
         rowData[columnName] = input.value
     })
     fetch("/update-process", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(rowData) })
-        .then(response => { response.ok ? notyf.success('Data sent to the server successfully!') : notyf.error('An error occurred while communicating with the server:', response.statusText) })
+        .then(response => { response.ok ? notyf.success('Data has been updated successfully!') : notyf.error('An error occured!') })
         .catch(err => { console.error('An error occurred during communication:', err) })
 }
 
 if (path.includes("insert")) {
     $(document).ready(function () {
         $("#options").change(function () {
-            $(".content").addClass("hidden");
+            $(".content").addClass("hidden")
             $("#content-" + $(this).val()).removeClass("hidden")
         })
     })
@@ -107,7 +107,8 @@ if (path.includes("insert")) {
     const form = document.querySelector("form")
     const fd = new FormData(form)
     const urlencoded = new URLSearchParams(fd).toString()
-    fetch("http://localhost:3000/insert-data", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: urlencoded})   .then(response => { response.ok ? notyf.success("Data successfully inserted!") : notify.error("Error occured!") })
+    const hasEmptyValue = Array.from(urlencoded.values()).some(value => value === "")
+    if (!hasEmptyValue) fetch("/insert-data", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: urlencoded}).then(response => { response.ok ? notyf.success("Data successfully inserted!") && setTimeout(() => { window.location.reload() }, 2000) : notyf.error("Error occured!") })
 }
 
 /**
@@ -160,4 +161,5 @@ function deleteData(table, rowIndex,) {
     }
     fetch('/delete-process', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ table: table, colName: colName, rowIndex: rowIndex }) })
         .then(response => { response.ok ? notyf.success("Data has been deleted successfully!") : notyf.error("An error occurred during data deletion.") })
+        .then(() => setTimeout(() => { window.location.reload() }, 1200))
 }

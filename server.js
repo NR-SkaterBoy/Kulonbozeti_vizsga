@@ -17,7 +17,7 @@ const db = new Database("./chinook.db")
 app.set("view engine", "pug")
 app.set("views", __dirname + "/frontend")
 app.use(express.static("./static"))
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 // app.use(helmet())
 app.use(morgan("dev"))
@@ -46,7 +46,6 @@ app.post("/insert-data/:table", (req, res) => {
     db.insert(table, req.body, (err, lid) => {
         if (err) return console.error(`Error occurred during insertion: ${err}`)
         console.log(`Data inserted successfully. Data inserted to: ${table}, Data: ${Object.values(req.body)}, Last ID: ${lid}`)
-        res.redirect("/insert");
     })
 })
 
